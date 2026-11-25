@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Ensamble Inmediato: 60/40 · Entradas</title>
+  <meta name="description" content="Registra tu entrada para el concierto Ensamble Inmediato: 60/40.">
+  <meta name="theme-color" content="#0e0d0c">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Crect width='6' height='10' fill='%23ff5b2e'/%3E%3Crect x='6' width='4' height='10' fill='%23efe9dc'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="demo-banner" id="demoBanner" hidden>Modo demo · los datos quedan solo en este teléfono</div>
+
+  <header class="hero">
+    <p class="kicker">Concierto</p>
+    <h1>Ensamble<br>Inmediato</h1>
+    <div class="split" aria-label="60/40">
+      <span>60</span><span>40</span>
+    </div>
+    <p class="meta" id="meta"></p>
+    <p class="info" id="info" hidden></p>
+  </header>
+
+  <main class="wrap">
+    <p class="loading" id="loading">Cargando entradas…</p>
+    <div class="notice error" id="loadError" hidden></div>
+    <div class="notice" id="closed" hidden></div>
+
+    <form id="form" hidden>
+      <section class="step">
+        <h2><span class="num">1</span>Elige tu entrada</h2>
+        <div class="tiers" id="tiers" role="radiogroup" aria-label="Tipo de entrada"></div>
+        <div class="qty-row">
+          <span>Cantidad</span>
+          <div class="stepper">
+            <button type="button" id="minus" aria-label="Menos">−</button>
+            <output id="qty">1</output>
+            <button type="button" id="plus" aria-label="Más">+</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="step">
+        <h2><span class="num">2</span>Tus datos</h2>
+        <label class="field"><span>Nombre completo</span>
+          <input name="nombre" required autocomplete="name" maxlength="100"></label>
+        <label class="field"><span>Carnet de identidad</span>
+          <input name="ci" required maxlength="20" autocomplete="off"></label>
+        <label class="field"><span>Celular (WhatsApp)</span>
+          <input name="telefono" type="tel" inputmode="tel" required autocomplete="tel" maxlength="20"></label>
+        <label class="field"><span>Email <em>opcional</em></span>
+          <input name="email" type="email" autocomplete="email" maxlength="100"></label>
+      </section>
+
+      <section class="step">
+        <h2><span class="num">3</span>Paga con QR</h2>
+        <div class="pay" id="pay">
+          <p class="amount">Monto a pagar <strong id="total">Bs 0</strong></p>
+          <img class="qr" id="qrImg" alt="QR para el pago">
+          <a class="btn ghost" id="qrDownload" download="qr-ensamble-6040.png">Guardar QR</a>
+          <p class="hint">Guarda el QR y ábrelo desde la app de tu banco con “pagar con QR desde galería”. Paga el monto exacto.</p>
+        </div>
+        <div class="notice" id="noQr" hidden>El QR de pago todavía no está disponible. Vuelve pronto.</div>
+
+        <label class="upload" id="upload">
+          <input type="file" id="proof" accept="image/*" required>
+          <img id="proofPreview" alt="Comprobante" hidden>
+          <span id="proofText"><strong>Sube la captura del comprobante</strong><br>Toca aquí para elegirla</span>
+        </label>
+      </section>
+
+      <div class="notice error" id="formError" hidden></div>
+      <button class="btn primary big" id="submit">Enviar registro · <span id="totalBtn">Bs 0</span></button>
+    </form>
+
+    <section class="done" id="done" hidden>
+      <p class="kicker">Registro enviado</p>
+      <p class="code" id="doneCode"></p>
+      <p class="summary" id="doneSummary"></p>
+      <p class="hint">Tu pago está <strong>pendiente de verificación</strong>. Toma una captura de esta pantalla: tu código es tu respaldo en la puerta.</p>
+      <button class="btn ghost" type="button" id="again">Registrar otra compra</button>
+    </section>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="api.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

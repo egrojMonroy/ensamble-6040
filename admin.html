@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Admin · Ensamble Inmediato 60/40</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0e0d0c">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Crect width='6' height='10' fill='%23ff5b2e'/%3E%3Crect x='6' width='4' height='10' fill='%23efe9dc'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="admin">
+  <div class="demo-banner" id="demoBanner" hidden>Modo demo · la contraseña es “demo”</div>
+
+  <header class="bar">
+    <span class="bar-title"><span class="mini-split"><i></i><i></i></span>Admin 60/40</span>
+    <button class="link" type="button" id="logout" hidden>Salir</button>
+  </header>
+
+  <main class="wrap">
+    <form class="card login" id="login">
+      <h1>Entrar</h1>
+      <label class="field"><span>Contraseña</span>
+        <input type="password" id="password" required autocomplete="current-password"></label>
+      <div class="notice error" id="loginError" hidden></div>
+      <button class="btn primary">Entrar</button>
+    </form>
+
+    <div id="panel" hidden>
+      <nav class="tabs" id="tabs">
+        <button type="button" data-tab="regs" class="on">Registros</button>
+        <button type="button" data-tab="tiers">Tiers</button>
+        <button type="button" data-tab="setup">QR y evento</button>
+      </nav>
+
+      <section id="tab-regs">
+        <div class="stats" id="stats"></div>
+        <input class="search" id="search" type="search" placeholder="Buscar nombre, CI, código o celular">
+        <div class="chips" id="chips">
+          <button type="button" data-f="todos" class="on">Todos</button>
+          <button type="button" data-f="pendiente">Pendientes</button>
+          <button type="button" data-f="pagado">Pagados</button>
+          <button type="button" data-f="rechazado">Rechazados</button>
+        </div>
+        <div id="regList"></div>
+        <button class="btn ghost" type="button" id="refresh">Actualizar lista</button>
+      </section>
+
+      <section id="tab-tiers" hidden>
+        <p class="hint">Se venden en este orden. En modo <b>secuencial</b> solo se vende el primero disponible; cuando se agota o vence, se abre el siguiente. Los rechazados no cuentan para el cupo.</p>
+        <div id="tierList"></div>
+        <button class="btn ghost" type="button" id="addTier">+ Agregar tier</button>
+        <button class="btn primary" type="button" id="saveTiers">Guardar tiers</button>
+      </section>
+
+      <section id="tab-setup" hidden>
+        <div class="card">
+          <h2>QR de pago</h2>
+          <img class="qr" id="qrPreview" alt="QR actual" hidden>
+          <p class="hint" id="qrEmpty">Todavía no hay QR. Sin QR la página no deja registrarse.</p>
+          <label class="btn primary file">Subir nuevo QR
+            <input type="file" id="qrFile" accept="image/*"></label>
+        </div>
+
+        <form class="card" id="cfgForm">
+          <h2>Evento</h2>
+          <label class="field"><span>Nombre</span><input name="evento" maxlength="100"></label>
+          <label class="field"><span>Fecha y hora</span><input name="fecha" maxlength="100" placeholder="Sábado 13 de diciembre · 20:00"></label>
+          <label class="field"><span>Lugar</span><input name="lugar" maxlength="100"></label>
+          <label class="field"><span>Info extra</span><textarea name="info" rows="3" maxlength="500"></textarea></label>
+          <label class="field"><span>Modo de tiers</span>
+            <select name="modo_tiers">
+              <option value="secuencial">Secuencial (preventa 1 → 2 → …)</option>
+              <option value="todos">Todos a la vez</option>
+            </select></label>
+          <label class="field"><span>Máximo de entradas por registro</span>
+            <input name="max_por_persona" type="number" inputmode="numeric" min="1" max="50"></label>
+          <button class="btn primary">Guardar evento</button>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="config.js"></script>
+  <script src="api.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
